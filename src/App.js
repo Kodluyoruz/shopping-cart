@@ -1,25 +1,63 @@
-import logo from "./logo.svg";
+import React, { Component } from "react";
 import "./App.css";
+import Navbar from "./components/Navbar";
+import { products } from "./constants";
+import ProductGrid from "./components/ProductsGrid";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    products: [
+      { id: 0, value: 0 },
+      { id: 1, value: 0 },
+      { id: 2, value: 0 },
+      { id: 3, value: 0 },
+      { id: 4, value: 0 },
+      { id: 5, value: 0 },
+    ],
+    itemCount: 0,
+  };
+
+  handleIncrement = (product) => {
+    const products = [...this.state.products];
+    const index = products.indexOf(product);
+    products[index] = { ...products[index] };
+    products[index].value++;
+    const itemCount = this.getItemCount(products);
+    this.setState({ products, itemCount });
+  };
+
+  handleDecrement = (product) => {
+    const products = [...this.state.products];
+    const index = products.indexOf(product);
+    products[index] = { ...products[index] };
+    products[index].value--;
+    const itemCount = this.getItemCount(products);
+    this.setState({ products, itemCount });
+  };
+
+  getItemCount = (products) => {
+    // Sepetteki toplam ürün sayısı bulunuyor
+    let itemCount = products.reduce(
+      (total, product) => total + product.value,
+      0
+    );
+
+    return itemCount;
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <Navbar totalItems={this.state.itemCount} />
+        <ProductGrid
+          products={products}
+          productsInfo={this.state.products}
+          onIncrement={this.handleIncrement}
+          onDecrement={this.handleDecrement}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;

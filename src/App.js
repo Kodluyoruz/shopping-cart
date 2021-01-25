@@ -6,7 +6,7 @@ import ProductsGrid from "./components/ProductsGrid";
 
 class App extends Component {
   state = {
-    products: [
+    cart: [
       { id: 0, value: 0 },
       { id: 1, value: 0 },
       { id: 2, value: 0 },
@@ -18,29 +18,31 @@ class App extends Component {
   };
 
   handleIncrement = (product) => {
-    const products = [...this.state.products];
-    const index = products.indexOf(product);
-    products[index] = { ...products[index] };
-    products[index].value++;
-    const itemCount = this.getItemCount(products);
-    this.setState({ products, itemCount });
+    // cart array'inin kopyasını oluştur
+    const cart = [...this.state.cart];
+    // parametre olarak gelen product'ın cart array'i içerisindeki index'ini bul
+    const index = cart.indexOf(product);
+    // kopyalanan cart array'ine bu ürünü ekle ve value property'sini 1 artır
+    cart[index] = { ...cart[index] };
+    cart[index].value++;
+    // getItemCount fonksiyonunu kullanarak sepetteki ürün sayısını bul
+    const itemCount = this.getItemCount(cart);
+    // state'i güncelle
+    this.setState({ cart, itemCount });
   };
 
   handleDecrement = (product) => {
-    const products = [...this.state.products];
-    const index = products.indexOf(product);
-    products[index] = { ...products[index] };
-    products[index].value--;
-    const itemCount = this.getItemCount(products);
-    this.setState({ products, itemCount });
+    const cart = [...this.state.cart];
+    const index = cart.indexOf(product);
+    cart[index] = { ...cart[index] };
+    cart[index].value--;
+    const itemCount = this.getItemCount(cart);
+    this.setState({ cart, itemCount });
   };
 
-  getItemCount = (products) => {
-    // Sepetteki toplam ürün sayısı bulunuyor
-    let itemCount = products.reduce(
-      (total, product) => total + product.value,
-      0
-    );
+  getItemCount = (cart) => {
+    // Sepetteki toplam ürün sayısını bul
+    let itemCount = cart.reduce((total, product) => total + product.value, 0);
 
     return itemCount;
   };
@@ -51,7 +53,7 @@ class App extends Component {
         <Navbar totalItems={this.state.itemCount} />
         <ProductsGrid
           products={products}
-          productsInfo={this.state.products}
+          cart={this.state.cart}
           onIncrement={this.handleIncrement}
           onDecrement={this.handleDecrement}
         />

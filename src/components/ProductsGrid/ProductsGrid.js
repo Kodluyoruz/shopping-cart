@@ -2,7 +2,7 @@ import React from "react";
 import ProductCard from "../ProductCard";
 import { Container, Row } from "react-bootstrap";
 
-const ProductsGrid = ({ products, onIncrement, onDecrement, productsInfo }) => {
+const ProductsGrid = ({ products, onIncrement, onDecrement, cart }) => {
   return (
     <Container>
       <Row sm="2" md="3">
@@ -10,7 +10,7 @@ const ProductsGrid = ({ products, onIncrement, onDecrement, productsInfo }) => {
           <ProductCard
             key={product.id}
             product={product}
-            productInfo={productsInfo[product.id]}
+            cartItem={cart[product.id]}
             onIncrement={onIncrement}
             onDecrement={onDecrement}
           />

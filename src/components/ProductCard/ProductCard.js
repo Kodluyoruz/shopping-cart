@@ -3,7 +3,7 @@ import "./ProductCard.css";
 import { Card, Button, Row, Col, Badge } from "react-bootstrap";
 import { MinusCircleIcon, PlusCircleIcon, CartIcon } from "../icons";
 
-const ProductCard = ({ product, onIncrement, onDecrement, productInfo }) => {
+const ProductCard = ({ product, onIncrement, onDecrement, cartItem }) => {
   return (
     <Col style={{ margin: "30px 0px" }}>
       <Card className="">
@@ -20,13 +20,13 @@ const ProductCard = ({ product, onIncrement, onDecrement, productInfo }) => {
           </Card.Subtitle>
           <Card.Text className="text">{product.description}</Card.Text>
           <Row>
-            {productInfo.value > 0 ? (
+            {cartItem.value > 0 ? (
               <>
                 <Col>
                   <Button
                     variant="danger"
                     size="lg"
-                    onClick={() => onDecrement(productInfo)}
+                    onClick={() => onDecrement(cartItem)}
                     style={{ "margin-top": "auto" }}
                   >
                     <MinusCircleIcon />
@@ -37,14 +37,14 @@ const ProductCard = ({ product, onIncrement, onDecrement, productInfo }) => {
                     variant="secondary"
                     style={{ fontSize: 30, width: "100%" }}
                   >
-                    {productInfo.value}
+                    {cartItem.value}
                   </Badge>
                 </Col>
                 <Col>
                   <Button
                     variant="primary"
                     size="lg"
-                    onClick={() => onIncrement(productInfo)}
+                    onClick={() => onIncrement(cartItem)}
                     style={{ "margin-top": "auto" }}
                   >
                     <PlusCircleIcon />
@@ -55,7 +55,7 @@ const ProductCard = ({ product, onIncrement, onDecrement, productInfo }) => {
               <Col>
                 <Button
                   variant="primary"
-                  onClick={() => onIncrement(productInfo)}
+                  onClick={() => onIncrement(cartItem)}
                   style={{ "margin-top": "auto" }}
                 >
                   Add to Cart

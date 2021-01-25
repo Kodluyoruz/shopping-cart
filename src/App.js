@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { products } from "./constants";
-import ProductGrid from "./components/ProductsGrid";
+import ProductsGrid from "./components/ProductsGrid";
 
 class App extends Component {
   state = {
@@ -49,7 +49,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar totalItems={this.state.itemCount} />
-        <ProductGrid
+        <ProductsGrid
           products={products}
           productsInfo={this.state.products}
           onIncrement={this.handleIncrement}
